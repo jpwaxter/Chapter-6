@@ -10,12 +10,12 @@ namespace ModifiedGreenvilleRevenue
     {
         static void Main(string[] args)
         {
-            double contestantsNow = 0.0, contestantsLast = 0.0, rev = 0.0;
-            string contestantsNowInput, contestantsLastInput;
+            int contestantsNow = 0;
+            string contestantsNowInput;
 
             Console.Write("How many contestants entered this year? [0-30]: ");
             contestantsNowInput = Console.ReadLine();
-            contestantsNow = Convert.ToDouble(contestantsNowInput);
+            contestantsNow = int.Parse(contestantsNowInput);
 
             while (contestantsNow < 0 || contestantsNow > 30)
             {
@@ -23,38 +23,39 @@ namespace ModifiedGreenvilleRevenue
                 Console.WriteLine("That number isn't between 0 and 30.");
                 Console.Write("How many contestants entered this year? [0-30]: ");
                 contestantsNowInput = Console.ReadLine();
-                contestantsNow = Convert.ToDouble(contestantsNowInput);
+                contestantsNow = int.Parse(contestantsNowInput);
                 Console.WriteLine();
             }
 
-            // grab user input for contestantsLast here
-            Console.Write("How many contestants entered last year? [0-30]: ");
-            contestantsLastInput = Console.ReadLine();
-            contestantsLast = Convert.ToDouble(contestantsLastInput);
+            List<string> singers = new List<string>();
+            List<string> dancers = new List<string>();
+            List<string> musicians = new List<string>();
+            List<string> other = new List<string>();
 
-            while (contestantsLast < 0 || contestantsLast > 30)
+            for(int i = 0; i < contestantsNow; i++)
             {
+                Console.Write("Enter a contestant's name: ");
+                string name = Console.ReadLine();
+                Console.Write("What type of talent are they performing? [s - Singing, d - Dancing, m - Music, o - Other]: ");
+                char talent = Console.ReadKey().KeyChar;
                 Console.WriteLine();
-                Console.WriteLine("That number isn't between 0 and 30.");
-                Console.Write("How many contestants entered last year? [0-30]: ");
-                contestantsLastInput = Console.ReadLine();
-                contestantsLast = Convert.ToDouble(contestantsLastInput);
-                Console.WriteLine();
+                while(talent != 's' && talent != 'd' && talent != 'm' && talent != 'o')
+                {
+                    Console.WriteLine("That isn't a valid talent.");
+                    Console.Write("What type of talent are they performing? [s - Singing, d - Dancing, m - Music, o - Other]: ");
+                    talent = Console.ReadKey().KeyChar;
+                    Console.WriteLine();
+                }
+
+                if (talent == 's')
+                    singers.Add(name);
+                else if (talent == 'd')
+                    dancers.Add(name);
+                else if (talent == 'm')
+                    musicians.Add(name);
+                else if (talent == 'o')
+                    other.Add(name);
             }
-
-            rev = contestantsNow * 25;
-            Console.WriteLine("This Year's Revenue: " + rev.ToString("C2"));
-
-            // Twice as big
-            if (contestantsNow > 2 * contestantsLast)
-                Console.WriteLine("The competition is more than twice as big this year!");
-            // Bigger but not twice as big (<= in case if contestantsNow == 2 * contestantsLast)
-            else if (contestantsNow > contestantsLast && contestantsNow <= contestantsLast * 2)
-                Console.WriteLine("The competition is bigger than ever!");
-            // Smaller (or equal to) last year's
-            else if (contestantsNow < contestantsLast)
-                Console.WriteLine("A tighter race this year! Come out and cast your vote!");
-            Console.ReadLine();
         }
     }
 }
