@@ -56,6 +56,56 @@ namespace ModifiedGreenvilleRevenue
                 else if (talent == 'o')
                     other.Add(name);
             }
+
+            Console.WriteLine("Number of contestants by type.");
+            Console.WriteLine("Singer: {0}", singers.Count);
+            Console.WriteLine("Dancers: {0}", dancers.Count);
+            Console.WriteLine("Musicians: {0}", musicians.Count);
+            Console.WriteLine("Other: {0}", other.Count);
+
+            while(true)
+            {
+                Console.Write("Choose a talent to see a list of names. [s, d, m, o]: ");
+                char talent = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                while(talent != 's' && talent != 'd' && talent != 'm' && talent != 'o')
+                {
+                    Console.WriteLine("That isn't a valid talent.");
+                    Console.Write("Choose a talent to see a list of names. [s - Singing, d - Dancing, m - Music, o - Other]: ");
+                    talent = Console.ReadKey().KeyChar;
+                    Console.WriteLine();
+                }
+
+                if (talent == 's')
+                {
+                    for(int i =0; i < singers.Count; i++)
+                    {
+                        Console.WriteLine(singers[i]);
+                    }
+                }                    
+                else if (talent == 'd')
+                {
+                    for(int i =0; i < dancers.Count; i++)
+                    {
+                        Console.WriteLine(dancers[i]);
+                    }
+                }
+                else if (talent == 'm')
+                {
+                    for(int i =0; i < musicians.Count; i++)
+                    {
+                        Console.WriteLine(musicians[i]);
+                    }
+                }
+                else if (talent == 'o')
+                {
+                    for(int i =0; i < other.Count; i++)
+                    {
+                        Console.WriteLine(other[i]);
+                    }
+                }                
+			    
+            }
         }
     }
 }
